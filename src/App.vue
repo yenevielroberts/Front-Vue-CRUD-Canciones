@@ -1,10 +1,10 @@
 <script setup>
-import Home from './views/Home.vue';
+import BarraNavegación from './components/BarraNavegación.vue';
 
 </script>
 
 <template>
- <Home />
+    <BarraNavegación />
 </template>
 
 <style scoped></style>

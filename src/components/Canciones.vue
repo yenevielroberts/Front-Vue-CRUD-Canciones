@@ -22,18 +22,28 @@ const idItem=ref(null)
       <!--Aquí ya se cargó los datos de la api-->
       <p>{{ idItem }}</p>
       <div id="buscardor">
-           <input type="number" v-model="idItem"/> 
+           <input type="text" v-model="idItem"/> 
            <button type="button" >Buscar</button>
       </div>
+      <RouterLink to="/canciones/new">Agregar una nueva canción</RouterLink>
    
     <div  v-if="data && data.songs" class="containerMeals">
-        <div v-for="song in data.songs" >
+        <div v-for="song in data.songs" class="container-items">
             <p><strong>Titulo: </strong>{{ song.title }}</p>
             <p><strong>Cantante: </strong>{{ song.singer }}</p>
+            <RouterLink :to="`/canciones/${song.id}`">Ver detalle del canción</RouterLink>
         </div>
     </div>
     </div>
 </template>
 <style  scoped>
     
+.container-items{
+  display: flex;
+  flex-direction: row;
+}
+
+.container-items > p{
+  margin: 10px;
+}
 </style>

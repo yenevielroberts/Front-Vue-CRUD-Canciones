@@ -1,16 +1,21 @@
 <script setup>
+import Peliculas from '@/components/Peliculas.vue';
+
 </script>
 
 <template>
       <!--Aquí ya se cargó los datos de la api-->
       <div class="container">
           <div id="admin-panel">
-          <!--<h1>Hi <%=username%>!</h1>-->
-          <p>You are in the admin pannel</p>
-          <a href="/protected">Manage items</a>
-          <button id="close-session">Log out</button>
-      </div>
-    </div>
+            <!--<h1>Hi <%=username%>!</h1>-->
+            <p>You are in the admin pannel</p>
+            <a href="/protected" class="enlaces">Manage items</a>
+            <button id="close-session">Log out</button>
+          </div>
+          
+          <Peliculas Genero='songs'/>
+        <Peliculas Genero='movies'/>
+        </div>
 </template>
 
 <style>
@@ -26,7 +31,6 @@
     */
     border-radius: 5px;
     margin-top: 50px;
-    color:white;
     border: solid #9D174D;
 } 
 
@@ -51,7 +55,7 @@
     margin: 10px;
 }
 
-.container a, button{
+.container .enlaces, button{
     height: fit-content;
     border-radius: 15px;
     border: 0px;
@@ -63,7 +67,7 @@
     color: white;
 }
 
-.container a:hover{
+.container .enlaces:hover{
     background-color:#F59E0B;
 
 }

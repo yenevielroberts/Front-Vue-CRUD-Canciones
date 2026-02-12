@@ -28,6 +28,8 @@ export function useFetch(url){
         }
     }
 
+    
+
     //Disparador que esta que no cargue el componente no pasa los datos, no llama la función
     onMounted(fetchData);//Ejecuta la función
 

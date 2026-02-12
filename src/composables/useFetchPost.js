@@ -6,31 +6,30 @@ export function useFetchPost(url){
     const error=ref(null)
     const loading=ref(false)//Estado de la carga. si es false es que todavia no termina de cargas
 
-    const fetchData= async()=>{
+ const login = async (body,urlAlternativa = null ) => {
+        loading.value = true;
+        error.value = null;
 
+        // Si pasa una url, usa esa. Si no, usa la del composable.
+    const urlDestino = urlAlternativa || url.value;
         try {
-            const res= await fetch(url.value);
+            const res = await fetch(urlDestino, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
 
-            loading.value=true
-            error.value=null
+            if (!res.ok) throw new Error('Error al actualizar');
 
-            if(!res.ok){
-                throw new Error('Error a la petició: '+res.status)
-            }
-
-            data.value=await res.json();
-
+            return await res.json();
         } catch (err) {
-            error.value=err.message
-        }finally{
-
-            loading.value=false
+            error.value = err.message;
+            throw err;
+        } finally {
+            loading.value = false;
         }
-    }
+    };
 
-    //Disparador que esta que no cargue el componente no pasa los datos, no llama la función
-    onMounted(fetchData);//Ejecuta la función
-
-    watch(url,fetchData)//Necesario para cada vez que se cambie el paramtro se redenrise la página
-    return {data, error,loading, fetchData}
+    
+    return {data, error,loading, login}
 }

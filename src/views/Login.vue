@@ -1,15 +1,21 @@
 <script setup>
 import {ref} from 'vue'
 import { useFetchPost } from '../composables/useFetchPost';
-const url=ref(``);
+
+const url=ref(`https://jubilant-halibut-x5vxwwwpppg7cvwx5-3000.app.github.dev/login`);
 const {login}=useFetchPost(url)
 
 const form=ref({})
 
-const login=async()=>{
+const loginHandler=async()=>{
 
-    if(form.value.length===0) return alert ("No se ha introducidos credenciales")
-    
+    try {
+
+     const user=await login(form.value)
+
+    } catch (error) {
+        console.error("Fallo en el inicio de sesión:",error);
+    }
 }
 </script>
 
@@ -19,14 +25,14 @@ const login=async()=>{
             <p class="eyebrow">Acceso</p>
             <h1>Login</h1>
             <p class="sub">Ingresa para administrar tu catalogo musical.</p>
-            <form class="form" action="#" @submit.prevent>
-                <label class="field">
-                    <span>Correo</span>
-                    <input type="email" name="email" placeholder="tu@email.com" required />
+            <form class="form" @submit.prevent="loginHandler">
+                <label class="field" for="name">
+                    <span>Nombre de usuario</span>
+                    <input type="text" name="name" placeholder="tuUserName" required v-model="form.name"/>
                 </label>
-                <label class="field">
+                <label class="field" for="password">
                     <span>Contrasena</span>
-                    <input type="password" name="password" placeholder="********" required />
+                    <input type="password" name="password" placeholder="********" required v-model="form.password">
                 </label>
                 <button class="btn" type="submit">Continuar</button>
             </form>

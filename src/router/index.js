@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/Login.vue'
+import Signup from '@/views/Signup.vue'
 import Inicio from '@/views/Inicio.vue'
 import Home from '@/views/Home.vue'
 import Canciones from '@/components/Canciones.vue'
@@ -17,6 +18,7 @@ const router = createRouter({
     {path:"/canciones/:id", name:"Detalle",component:Detalle},
     {path:"/canciones/new",name:"nuevoItem", component:NuevoItem},
     {path:"/peliculas", name:"Peliculas", component:Peliculas},
+    {path:"/signup", name:"Signup", component:Signup},
   ],
 })
 

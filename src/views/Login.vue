@@ -2,8 +2,8 @@
 import {ref} from 'vue'
 import { useFetchPost } from '../composables/useFetchPost';
 
-const url=ref(`https://jubilant-halibut-x5vxwwwpppg7cvwx5-3000.app.github.dev/login`);
-const {login}=useFetchPost(url)
+const url=ref(`/login`);
+const {peticionPost}=useFetchPost(url)
 
 const form=ref({})
 
@@ -11,7 +11,7 @@ const loginHandler=async()=>{
 
     try {
 
-     const user=await login(form.value)
+     await peticionPost(form.value)
 
     } catch (error) {
         console.error("Fallo en el inicio de sesión:",error);

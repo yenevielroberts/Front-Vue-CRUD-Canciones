@@ -6,7 +6,7 @@ export function useFetchPost(url){
     const error=ref(null)
     const loading=ref(false)//Estado de la carga. si es false es que todavia no termina de cargas
 
- const login = async (body ) => {
+ const peticionPost = async (body ) => {
         loading.value = true;
         error.value = null;
 
@@ -20,16 +20,23 @@ export function useFetchPost(url){
                 body: JSON.stringify(body)
             });
 
-            if (!res.ok) return alert("Credenciales incorrectas");
-            return await res.json();
+            //Obtenemos el JSON de la respuesta (sea éxito o error)
+            const resultado= await res.json();
+
+            if(!res.ok){
+                error.value=resultado.error || "Error en el servidor";
+                throw new Error (error.value);
+            }
+            data.value=resultado;
+            return resultado;
+
         } catch (err) {
             error.value = err.message;
-            throw err;
+            throw err; // Re-lanzamos para que el signupHandler lo capture
         } finally {
             loading.value = false;
         }
     };
-
     
-    return {data, error,loading, login}
+    return {data, error,loading, peticionPost}
 }

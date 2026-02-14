@@ -1,9 +1,10 @@
 <script setup>
 import {ref} from 'vue'
 import { useFetchPost } from '../composables/useFetchPost';
+import router from '@/router';
 
 const url=ref('http://localhost:3000/login');
-const {peticionPost}=useFetchPost(url)
+const {peticionPost, error,loading}=useFetchPost(url)
 
 const form=ref({})
 
@@ -19,7 +20,6 @@ const loginHandler=async()=>{
     }
 
     } catch (error) {
-        alert(error?.message || "Error en el inicio de sesión")
         console.error("Fallo en el inicio de sesión:",error);
     }
 }
@@ -31,6 +31,7 @@ const loginHandler=async()=>{
             <p class="eyebrow">Acceso</p>
             <h1>Login</h1>
             <p class="sub">Ingresa para administrar tu catalogo musical.</p>
+            <p v-if="error" class="error">{{ error }}</p>
             <form class="form" @submit.prevent="loginHandler">
                 <label class="field" for="name">
                     <span>Nombre de usuario</span>
@@ -64,6 +65,11 @@ const loginHandler=async()=>{
         radial-gradient(circle at 80% 10%, #1a2c2b 0%, transparent 50%),
         linear-gradient(135deg, #0c0f14 0%, #11171f 60%, #0c0f14 100%);
     color: #f7f4ef;
+}
+
+.error{
+    color: red;
+    font-weight: bold;
 }
 
 .card {

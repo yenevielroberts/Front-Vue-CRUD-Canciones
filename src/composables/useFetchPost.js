@@ -10,7 +10,6 @@ export function useFetchPost(url){
         loading.value = true;
         error.value = null;
 
-        // Si pasa una url, usa esa. Si no, usa la del composable.
 
         try {
             const res = await fetch(url.value, {
@@ -20,14 +19,15 @@ export function useFetchPost(url){
                 body: JSON.stringify(body)
             });
 
-            //Obtenemos el JSON de la respuesta (sea éxito o error)
+            //Obtenemos el JSON de la respuesta del backend(sea éxito o error)
             const resultado= await res.json();
 
             if(!res.ok){
+                //Si la respuesta que devuelve el backend no es ok guardamos el error que devuelve dentro de la variable error
                 error.value=resultado.error || "Error en el servidor";
                 throw new Error (error.value);
             }
-            data.value=resultado;
+            data.value=resultado;//Guardo lo que devuelve el back
             return resultado;
 
         } catch (err) {

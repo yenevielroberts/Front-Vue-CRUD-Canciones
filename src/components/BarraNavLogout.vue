@@ -1,15 +1,4 @@
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-const route=useRoute()
-
-const rutaPath=ref(false)
-
-if(route.fullPath==="/" || route.fullPath==="/login" || route.fullPath==="/signup"){
-    rutaPath.value=false
-}else{
-    rutaPath.value=true
-}
 
 </script>
 
@@ -17,13 +6,8 @@ if(route.fullPath==="/" || route.fullPath==="/login" || route.fullPath==="/signu
 
     <header>
         <div class="logo">RitmoLocal</div>
-        <nav v-show="rutaPath">
-            <RouterLink to="/canciones" class="enlace-nav">Canciones</RouterLink>
-            <RouterLink to="/peliculas" class="enlace-nav">Películas</RouterLink>
-            <RouterLink to="/home" class="enlace-nav">Inicio</RouterLink>
-        </nav>
         <nav>
-            <RouterLink to="/login" class="enlace-nav">Login</RouterLink>
+            <RouterLink to="/login" class="enlace-nav">Log in</RouterLink>
             <RouterLink to="/" class="enlace-nav">Inicio</RouterLink>
         </nav>
     </header>

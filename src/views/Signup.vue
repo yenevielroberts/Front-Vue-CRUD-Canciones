@@ -15,17 +15,17 @@ const signupHandler=async()=>{
 
     try {
 
-        const res= await peticionPost(form.value)
+        const res= await peticionPost(form.value)//En esta variable guardo lo que devuelve el composable
 
         if(res){
+            //Si la respuesta de peticionPost es ok redirijo a la home page
             console.log("Registro exitoso:",res)
             //Redirigimos al home después de 1 segundo
             setTimeout(()=>router.push('/home'),500)
         }
-        
+        //Si la respuesta no es ok, no redirijo y muestro la variable error en el HTML
 
     } catch (error) {
-        alert(error?.message || "Error en el registro")
         console.error("Fallo en el registro:",error.message);
     }
 }
@@ -37,6 +37,7 @@ const signupHandler=async()=>{
             <p class="eyebrow">Registro</p>
             <h1>Registro</h1>
             <p class="sub">Registrate para comenzar a administrar tu catalogo musical.</p>
+            <p v-if="error" class="error">{{ error }}</p>
             <form class="form" @submit.prevent="signupHandler">
                 <label class="field" for="name">
                     <span>Nombre de usuario</span>
@@ -73,6 +74,10 @@ const signupHandler=async()=>{
     color: #f7f4ef;
 }
 
+.error{
+    color: red;
+    font-weight: bold;
+}
 .card {
     width: min(420px, 100%);
     padding: 32px;

@@ -1,28 +1,33 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 const route=useRoute()
 
-const rutaPath=ref(false)
+//con el computed vue observa si la ruta cambia
+const mostrarNavPrivado=computed(()=>{
+    const rutasPublicas=[ '/','/login','/signup']
 
-if(route.fullPath==="/" || route.fullPath==="/login" || route.fullPath==="/signup"){
-    rutaPath.value=false
-}else{
-    rutaPath.value=true
+    return !rutasPublicas.includes(route.path)
+})
+
+const emit=defineEmits(["logout"])
+
+const logout=()=>{
+    emit('logout')
 }
-
 </script>
 
 <template>
 
     <header>
         <div class="logo">RitmoLocal</div>
-        <nav v-show="rutaPath">
+        <nav v-if="mostrarNavPrivado">
             <RouterLink to="/canciones" class="enlace-nav">Canciones</RouterLink>
             <RouterLink to="/peliculas" class="enlace-nav">Películas</RouterLink>
             <RouterLink to="/home" class="enlace-nav">Inicio</RouterLink>
+            <button @click="logout" class="enlace-nav">Log out</button>
         </nav>
-        <nav>
+        <nav v-else>
             <RouterLink to="/login" class="enlace-nav">Login</RouterLink>
             <RouterLink to="/" class="enlace-nav">Inicio</RouterLink>
         </nav>

@@ -2,13 +2,7 @@
 import { ref} from 'vue';
 import { useFetch } from '../composables/useFetch';
 
-//songs o movies
-const props=defineProps({
-
-  Genero:String
-})
-
-const url=ref(`http://localhost:3000/${props.Genero}`)
+const url=ref(`http://localhost:3000/movies`)
 
 const {data, error,loading, fetchData}=useFetch(url);
 const idItem=ref(null)
@@ -30,8 +24,8 @@ const idItem=ref(null)
            <input type="text" v-model="idItem"/> 
            <button type="button" >Buscar</button>
       </div>
-    <div  v-if="data && data.songs" class="containerMeals">
-        <div v-for="item in data.songs" >
+    <div  v-if="data && data.movies" class="containerMeals">
+        <div v-for="item in data.movies" >
             <p><strong>Titulo: </strong>{{ item.title }}</p>
             <p v-show="item.singer"><strong>Cantante: </strong>{{ item.singer }}</p>
 

@@ -2,7 +2,7 @@
 import {ref} from 'vue'
 import { useFetchPost } from '../composables/useFetchPost';
 
-const url=ref(`/login`);
+const url=ref('http://localhost:3000/login');
 const {peticionPost}=useFetchPost(url)
 
 const form=ref({})
@@ -11,9 +11,15 @@ const loginHandler=async()=>{
 
     try {
 
-     await peticionPost(form.value)
+    const res= await peticionPost(form.value)
+
+    if(res){
+        console.log("Login exitoso:",res)
+        setTimeout(()=>router.push('/home'),500)
+    }
 
     } catch (error) {
+        alert(error?.message || "Error en el inicio de sesión")
         console.error("Fallo en el inicio de sesión:",error);
     }
 }
@@ -28,7 +34,7 @@ const loginHandler=async()=>{
             <form class="form" @submit.prevent="loginHandler">
                 <label class="field" for="name">
                     <span>Nombre de usuario</span>
-                    <input type="text" name="name" placeholder="tuUserName" required v-model="form.name"/>
+                    <input type="text" name="name" placeholder="tuUserName" required v-model="form.username"/>
                 </label>
                 <label class="field" for="password">
                     <span>Contrasena</span>

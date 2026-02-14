@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import { useFetchPost } from '../composables/useFetchPost';
 import router from '@/router';
 
-const url=ref('/signup');
+const url=ref('http://localhost:3000/signup');
 const {peticionPost, loading, error}=useFetchPost(url)
 
 const form=ref({
@@ -20,7 +20,7 @@ const signupHandler=async()=>{
         if(res){
             console.log("Registro exitoso:",res)
             //Redirigimos al home después de 1 segundo
-            setTimeout(()=>router.push('/'),500)
+            setTimeout(()=>router.push('/home'),500)
         }
         
 

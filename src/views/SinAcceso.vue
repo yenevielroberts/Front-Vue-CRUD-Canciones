@@ -4,5 +4,5 @@
 
 <template>
 
-    <p>Sin permiso</p>
+    <p>Error: Sin permiso</p>
 </template>

@@ -1,12 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
 const route=useRoute()
 
 //con el computed vue observa si la ruta cambia
 const mostrarNavPrivado=computed(()=>{
     const rutasPublicas=[ '/','/login','/signup']
 
+    
     return !rutasPublicas.includes(route.path)
 })
 

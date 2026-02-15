@@ -1,8 +1,18 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import router from '@/router';
+import { useRoute } from 'vue-router'
 import BarraNavegación from './components/BarraNavegación.vue';
 import { useFetchPost } from './composables/useFetchPost';
+
+const route=useRoute()
+
+//con el computed vue observa si la ruta cambia
+const mostrarBarra=computed(()=>{
+    
+    if(route.path !="/sinAcceso") return true
+})
+
 
 const url=ref('http://localhost:3000/logout');
 const {logout, loading, error}=useFetchPost(url)
@@ -27,7 +37,7 @@ const logoutHandler=async()=>{
 </script>
 
 <template>
-    <BarraNavegación @logout="logoutHandler"/>
+    <BarraNavegación @logout="logoutHandler" v-show="mostrarBarra" />
     <p v-if="error">{{ error }}</p>
     <RouterView></RouterView>
 </template>

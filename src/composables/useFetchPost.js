@@ -12,7 +12,7 @@ export function useFetchPost(url){
 
  const peticionPost = async (body ) => {
         loading.value = true;
-     userStore.loading = true;
+        userStore.loading = true;
         error.value = null;
 
         try {
@@ -33,6 +33,7 @@ export function useFetchPost(url){
             }
             data.value=resultado;//Guardo lo que devuelve el back
             userStore.setUser(resultado.user)
+            userStore.setToken(resultado.token)
             return resultado //sin esto el if res del login nunca se cumple
         } catch (err) {
             error.value = err.message;

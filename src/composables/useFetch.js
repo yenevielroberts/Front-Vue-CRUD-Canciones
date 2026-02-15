@@ -1,6 +1,8 @@
 import { onMounted, ref, watch } from "vue";
+import {useUserStore} from '@/storages/UserStore'
 
 export function useFetch(url){
+    const {user,token}=useUserStore();
 
     const data=ref(null)
     const error=ref(null)
@@ -8,20 +10,30 @@ export function useFetch(url){
 
     const fetchData= async()=>{
 
+        loading.value=true
+        error.value=null
+
         try {
-            const res= await fetch(url.value);
+            const res= await fetch(url.value,{
+                method:'GET',
+                credentials:'include',
+                headers:{ 'Content-Type': 'application/json' },
+              
+            });
 
-            loading.value=true
-            error.value=null
-
+            const resultado= await res.json();
             if(!res.ok){
-                throw new Error('Error a la petició: '+res.status)
+                error.value=resultado.message ||"Error en el servidor";
+                throw new Error(error.value)
             }
 
-            data.value=await res.json();
+            data.value=resultado
+            return resultado
 
         } catch (err) {
             error.value=err.message
+            throw err;
+
         }finally{
 
             loading.value=false

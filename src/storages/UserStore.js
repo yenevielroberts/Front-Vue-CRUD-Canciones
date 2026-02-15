@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
   const user = ref(null);
+  const token=ref(null);
   const loading = ref(false);
 
   const setUser = (data) => {
@@ -13,5 +14,9 @@ export const useUserStore = defineStore('user', () => {
     user.value = null;
   };
 
-  return { user, loading, setUser, clearUser };
+   const setToken = (data) => {
+    token.value = data;
+  };
+
+  return { user, loading, setUser, clearUser, setToken };
 });

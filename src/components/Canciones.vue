@@ -8,8 +8,9 @@ const url=ref(`http://localhost:3000/songs`)
 
 const {data, error,loading}=useFetch(url);
 const idItem=ref(null)
+console.log(error.value)
 
-if(error){
+if(!error){
   router.push('/sinAcceso')
 }
 </script>

@@ -15,10 +15,10 @@ const deleteHandler=async()=>{
 
   try{
 
-    const res=  await deleteRequest(`http://localhost:3000/songs/${itemId}`)
+    const res=  await deleteRequest(`http://localhost:3000/songs/songs/${itemId}`)
 
     if(res){
-      console.log("Canción eliminada correctamente:", res)
+      console.log("Canción eliminada correctamente:")
       setTimeout(()=>router.push('/canciones'),500)
     }
   }catch(error){

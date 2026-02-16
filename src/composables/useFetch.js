@@ -54,7 +54,9 @@ export function useFetch(url){
                 method: method,
                 credentials:'include',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
+                body: JSON.stringify(body),
+                session:user,
+                cookie:token,
             });
             
             //Obtenemos el JSON de la respuesta del backend(sea éxito o error)

@@ -9,7 +9,7 @@ const route=useRoute();
 const itemId=route.params.id
 
 const url= ref(`http://localhost:3000/songs/show/${itemId}`)
-const {data, error,loading,deleteRequest}=useFetch(url);
+const {data, error,loading,insert}=useFetch(url);
 
 const form=reactive({
     title:'',
@@ -25,6 +25,23 @@ watchEffect(()=>{
         form.year=data.value.song.year || '';
     }
 })
+
+const editHandler=async()=>{
+
+    const url=`http://localhost:3000/songs/songs/${itemId}`
+    try{
+        const res=await insert(form, "PUT",url )
+
+        if(res){
+            console.log("Detalle echo existosamente")
+            const id= res.id
+            setTimeout(()=>router.push(`/canciones/${id}`),500)
+
+        }
+    }catch(error){
+        console.log("Fallo actualizando la canción:", error.message)
+    }
+}
 </script>
 
 <template>
@@ -41,7 +58,7 @@ watchEffect(()=>{
     </div>
 
     <div v-else>
-    <form>
+    <form  @submit.prevent="editHandler">
             <label class="field" for="title">
                     <span>Nombre de la canción</span>
                     <input type="text" name="title" required v-model="form.title"/>
@@ -57,7 +74,7 @@ watchEffect(()=>{
             </label>
 
             <div>
-                <button>Editar</button>
+                <button type="submit">Editar</button>
             </div>
         </form>
     </div>

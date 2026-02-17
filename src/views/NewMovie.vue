@@ -17,10 +17,10 @@ const insertHandler=async()=>{
     const url=`http://localhost:3000/movies/movies`
     try{
         const res=await insert(form, "POST",url )
-
+        
         if(res){
-            console.log("Nuevo Item introducido correctamente")
-            const id=res.id
+            console.log("Nueva película creada correctamente")
+            const id = res.newMovie?.id || res.id
             setTimeout(()=>router.push(`/peliculas/${id}`),500)
 
         }

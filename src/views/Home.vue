@@ -1,7 +1,15 @@
 <script setup>
 import {useUserStore} from '@/storages/UserStore'
+import { checkUser } from '@/utils/functions';
 
 const {user, loading}= useUserStore();
+
+
+if(!loading && !user){
+
+   checkUser(true) 
+}
+
 
 </script>
 

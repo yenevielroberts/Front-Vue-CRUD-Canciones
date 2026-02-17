@@ -1,38 +1,52 @@
 <script setup>
-import { ref} from 'vue';
+import { ref, computed } from 'vue';
 import { useFetch } from '../composables/useFetch';
 import { useRoute } from 'vue-router';
 import router from '@/router';
+import { checkUser } from '@/utils/functions';
 
 
 const route=useRoute();
 const itemId=route.params.id
 
-const url= ref(`http://localhost:3000/songs/show/${itemId}`)
+// Detecta automáticamente si es canción o película según la ruta
+const tipo = computed(() => route.path.includes('canciones') ? 'canciones' : 'peliculas');
+const endpoint = computed(() => tipo.value === 'canciones' ? 'songs' : 'movies');
+const tituloTipo = computed(() => tipo.value === 'canciones' ? 'la canción' : 'la película');
+
+const url= ref(`http://localhost:3000/${endpoint.value}/show/${itemId}`)
 const {data, error,loading,deleteRequest}=useFetch(url);
+
+checkUser(error)
+
+// Computed para obtener los datos independientemente del tipo
+const itemData = computed(() => {
+  if (!data.value) return null;
+  return tipo.value === 'canciones' ? data.value.song : data.value.movie;
+});
 
 const deleteHandler=async()=>{
 
   try{
 
-    const res=  await deleteRequest(`http://localhost:3000/songs/songs/${itemId}`)
+    const res = await deleteRequest(`http://localhost:3000/${endpoint.value}/${endpoint.value}/${itemId}`)
 
     if(res){
-      console.log("Canción eliminada correctamente:")
-      setTimeout(()=>router.push('/canciones'),500)
+      console.log(`${tituloTipo.value} eliminada correctamente`)
+      setTimeout(()=>router.push(`/${tipo.value}`),500)
     }
   }catch(error){
-    console.error("Fallo eliminando la canción:",error.message);
+    console.error(`Fallo eliminando ${tituloTipo.value}:`,error.message);
   }
 
 }
 
-const editHandler=()=>router.push(`/editar/${itemId}`)
+const editHandler=()=>router.push(`/editar/${tipo.value}/${itemId}`)
 </script>
 
 <template>
   <div class="container">
-    <h1>Detalle de la cancion</h1>
+    <h1>Detalle de {{ tituloTipo }}</h1>
 
     <div v-if="loading" class="state">
       <p>loading</p>
@@ -44,10 +58,11 @@ const editHandler=()=>router.push(`/editar/${itemId}`)
 
     <div v-else>
       <!--Aquí ya se cargó los datos de la api-->
-      <div v-if="data && data.song" class="detail-card">
-        <p><strong>Titulo: </strong>{{ data.song.title }}</p>
-        <p><strong>Cantante: </strong>{{ data.song.singer }}</p>
-        <p class="muted">{{ data.song.year }}</p>
+      <div v-if="itemData" class="detail-card">
+        <p><strong>Titulo: </strong>{{ itemData.title }}</p>
+        <p v-if="tipo === 'canciones'"><strong>Cantante: </strong>{{ itemData.singer }}</p>
+        <p v-else><strong>Director: </strong>{{ itemData.director }}</p>
+        <p class="muted">{{ itemData.year }}</p>
       </div>
     </div>
     <div class="btns">

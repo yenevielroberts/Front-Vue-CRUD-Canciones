@@ -1,18 +1,15 @@
 <script setup>
 import { ref} from 'vue';
-import router from '@/router';
 import { useFetch } from '../composables/useFetch';
+import { checkUser } from '@/utils/functions';
 
 
 const url=ref(`http://localhost:3000/songs`)
 
 const {data, error,loading}=useFetch(url);
 const idItem=ref(null)
-console.log(error.value)
 
-if(!error){
-  router.push('/sinAcceso')
-}
+checkUser(error.value)
 </script>
 
 <template>

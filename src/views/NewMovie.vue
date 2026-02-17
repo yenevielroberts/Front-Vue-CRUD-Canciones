@@ -4,7 +4,7 @@ import { useFetch } from '../composables/useFetch';
 import router from '@/router';
 import { checkUser} from '@/utils/functions';
 
-const url= ref(`http://localhost:3000/songs`)
+const url= ref(`http://localhost:3000/movies`)
 const {data, error,loading,insert}=useFetch(url);
 
 checkUser(error.value)
@@ -17,14 +17,14 @@ const form=reactive({
 
 const insertHandler=async()=>{
 
-    const url=`http://localhost:3000/songs/songs`
+    const url=`http://localhost:3000/movies/movies`
     try{
         const res=await insert(form, "POST",url )
 
         if(res){
             console.log("Nuevo Item introducido correctamente")
             const id=res.id
-            setTimeout(()=>router.push(`/canciones/${id}`),500)
+            setTimeout(()=>router.push(`/pelciulas/${id}`),500)
 
         }
     }catch(error){
@@ -36,7 +36,7 @@ const insertHandler=async()=>{
 <template>
 
 <main class=" container">
-    <h1>Editar canción</h1>
+    <h1>Editar la película</h1>
 
      <div v-if="loading" class="state">
       <p>loading</p>
@@ -49,11 +49,11 @@ const insertHandler=async()=>{
     <div v-else>
     <form  @submit.prevent="insertHandler">
             <label class="field" for="title">
-                    <span>Nombre de la canción</span>
+                    <span>Nombre de la película</span>
                     <input type="text" name="title" required v-model="form.title"/>
             </label>
             <label class="field" for="singer">
-                    <span>Nombre del Cantante </span>
+                    <span>Nombre del director </span>
                     <input type="text" name="singer" required v-model="form.singer"/>
             </label>
 

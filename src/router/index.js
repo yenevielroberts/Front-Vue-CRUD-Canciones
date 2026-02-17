@@ -9,6 +9,7 @@ import Detalle from '@/views/Detalle.vue'
 import NewItem from '@/views/NewItem.vue'
 import SinAcceso from '@/views/SinAcceso.vue'
 import Editar from '@/views/Editar.vue'
+import NewMovie from '@/views/NewMovie.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,7 @@ const router = createRouter({
     {path:"/canciones/:id", name:"Detalle",component:Detalle},
     {path:"/editar/:id", name:"Editar",component:Editar},
     {path:"/canciones/new",name:"nuevoItem", component:NewItem},
+    {path:"/peliculas/new",name:"nuevoItem", component:NewMovie},
     {path:"/peliculas", name:"Peliculas", component:Peliculas},
     {path:"/signup", name:"Signup", component:Signup},
     {path:"/sinAcceso", name:"SinAcceso", component:SinAcceso},

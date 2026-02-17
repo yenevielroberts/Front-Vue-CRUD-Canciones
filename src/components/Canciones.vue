@@ -56,6 +56,12 @@ const {data, error,loading}=useFetch(url);
   gap: 18px;
 }
 
+.container h1{
+  margin: 0;
+  color: #e0b36a;
+  letter-spacing: 0.3px;
+}
+
 .state{
   padding: 12px 14px;
   border-radius: 12px;

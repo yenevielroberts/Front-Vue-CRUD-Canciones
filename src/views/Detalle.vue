@@ -24,17 +24,23 @@ const itemData = computed(() => {
 
 const deleteHandler=async()=>{
 
-  try{
+  const confirmarDelete=confirm("¿Seguro que quieres eliminar este item?")
 
-    const res = await deleteRequest(`http://localhost:3000/${endpoint.value}/${endpoint.value}/${itemId}`)
+  if(confirmarDelete){
+     try{
 
-    if(res){
-      console.log(`${tituloTipo.value} eliminada correctamente`)
-      setTimeout(()=>router.push(`/${tipo.value}`),500)
+      const res = await deleteRequest(`http://localhost:3000/${endpoint.value}/${endpoint.value}/${itemId}`)
+
+      if(res){
+        console.log(`${tituloTipo.value} eliminada correctamente`)
+        setTimeout(()=>router.push(`/${tipo.value}`),500)
+      }
+    }catch(error){
+      console.error(`Fallo eliminando ${tituloTipo.value}:`,error.message);
     }
-  }catch(error){
-    console.error(`Fallo eliminando ${tituloTipo.value}:`,error.message);
   }
+
+ 
 
 }
 

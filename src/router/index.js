@@ -6,7 +6,7 @@ import Home from '@/views/Home.vue'
 import Canciones from '@/components/Canciones.vue'
 import Peliculas from '@/components/Peliculas.vue'
 import Detalle from '@/views/Detalle.vue'
-import NewItem from '@/views/NewItem.vue'
+import NewItem from '@/views/NewSong.vue'
 import SinAcceso from '@/views/SinAcceso.vue'
 import Editar from '@/views/Editar.vue'
 import NewMovie from '@/views/NewMovie.vue'
@@ -22,11 +22,14 @@ const router = createRouter({
     // Rutas con acceso solo si hay token
     {path:"/home", name:"Home", component:Home, meta:{requiresAuth:true}},
     {path:"/canciones", name:"Canciones", component:Canciones, meta:{requiresAuth:true}},
-    {path:"/canciones/:id", name:"Detalle",component:Detalle, meta:{requiresAuth:true}},
-    {path:"/editar/:id", name:"Editar",component:Editar, meta:{requiresAuth:true}},
-    {path:"/canciones/new",name:"nuevoItem", component:NewItem, meta:{requiresAuth:true}},
-    {path:"/peliculas/new",name:"nuevoItem", component:NewMovie, meta:{requiresAuth:true}},
+    //Las rutas especificas como /canciones/new deben ir antes que las dinamicas  sino el router las interpreta como un id en este caso.
+    {path:"/canciones/new",name:"NuevaCancion", component:NewSong, meta:{requiresAuth:true}},
+    {path:"/canciones/:id", name:"DetalleCanciones",component:Detalle, meta:{requiresAuth:true}},
     {path:"/peliculas", name:"Peliculas", component:Peliculas, meta:{requiresAuth:true}},
+    {path:"/peliculas/new",name:"NuevaPelicula", component:NewMovie, meta:{requiresAuth:true}},
+    {path:"/peliculas/:id", name:"DetallePeliculas",component:Detalle, meta:{requiresAuth:true}},
+    {path:"/editar/canciones/:id", name:"EditarCanciones",component:Editar, meta:{requiresAuth:true}},
+    {path:"/editar/peliculas/:id", name:"EditarPeliculas",component:Editar, meta:{requiresAuth:true}},
   ],
 })
 

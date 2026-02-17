@@ -3,25 +3,25 @@ import { reactive, ref} from 'vue';
 import { useFetch } from '../composables/useFetch';
 import router from '@/router';
 
-const url= ref(`http://localhost:3000/movies`)
+const url= ref(`http://localhost:3000/songs`)
 const {data, error,loading,insert}=useFetch(url);
 
 const form=reactive({
     title:'',
-    director:'',
+    singer:'',
     year:''
 })
 
 const insertHandler=async()=>{
 
-    const url=`http://localhost:3000/movies/movies`
+    const url=`http://localhost:3000/songs/songs`
     try{
         const res=await insert(form, "POST",url )
 
         if(res){
             console.log("Nuevo Item introducido correctamente")
             const id=res.id
-            setTimeout(()=>router.push(`/peliculas/${id}`),500)
+            setTimeout(()=>router.push(`/canciones/${id}`),500)
 
         }
     }catch(error){
@@ -32,7 +32,7 @@ const insertHandler=async()=>{
 
 <template>
 <main class="container">
-    <h1>Nueva película</h1>
+    <h1>Nueva canción</h1>
 
     <div v-if="loading" class="state">
       <p>Cargando...</p>
@@ -45,13 +45,13 @@ const insertHandler=async()=>{
     <div v-else class="form-wrapper">
       <form @submit.prevent="insertHandler" class="edit-form">
         <label class="field" for="title">
-          <span>Título de la película</span>
+          <span>Título de la canción</span>
           <input type="text" name="title" required v-model="form.title" placeholder="Ingresa el título"/>
         </label>
         
-        <label class="field" for="director">
-          <span>Director</span>
-          <input type="text" name="director" required v-model="form.director" placeholder="Nombre del director"/>
+        <label class="field" for="singer">
+          <span>Cantante</span>
+          <input type="text" name="singer" required v-model="form.singer" placeholder="Nombre del cantante"/>
         </label>
 
         <label class="field" for="year">
@@ -60,8 +60,8 @@ const insertHandler=async()=>{
         </label>
 
         <div class="actions">
-          <button type="submit" class="btn-submit">Crear película</button>
-          <button type="button" class="btn-cancel" @click="router.push('/peliculas')">Cancelar</button>
+          <button type="submit" class="btn-submit">Crear canción</button>
+          <button type="button" class="btn-cancel" @click="router.push('/canciones')">Cancelar</button>
         </div>
       </form>
     </div>

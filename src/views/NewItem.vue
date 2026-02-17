@@ -2,12 +2,9 @@
 import { reactive, ref} from 'vue';
 import { useFetch } from '../composables/useFetch';
 import router from '@/router';
-import { checkUser} from '@/utils/functions';
 
 const url= ref(`http://localhost:3000/songs`)
 const {data, error,loading,insert}=useFetch(url);
-
-checkUser(error.value)
 
 const form=reactive({
     title:'',

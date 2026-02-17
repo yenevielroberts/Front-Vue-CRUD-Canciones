@@ -3,7 +3,7 @@ import { reactive, ref, watchEffect} from 'vue';
 import { useFetch } from '../composables/useFetch';
 import { useRoute } from 'vue-router';
 import router from '@/router';
-import { checkUser } from '@/utils/functions';
+
 
 
 const route=useRoute();
@@ -11,8 +11,6 @@ const itemId=route.params.id
 
 const url= ref(`http://localhost:3000/songs/show/${itemId}`)
 const {data, error,loading,insert}=useFetch(url);
-
-checkUser(error.value)
 
 const form=reactive({
     title:'',

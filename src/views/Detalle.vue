@@ -3,7 +3,6 @@ import { ref, computed } from 'vue';
 import { useFetch } from '../composables/useFetch';
 import { useRoute } from 'vue-router';
 import router from '@/router';
-import { checkUser } from '@/utils/functions';
 
 
 const route=useRoute();
@@ -16,8 +15,6 @@ const tituloTipo = computed(() => tipo.value === 'canciones' ? 'la canción' : '
 
 const url= ref(`http://localhost:3000/${endpoint.value}/show/${itemId}`)
 const {data, error,loading,deleteRequest}=useFetch(url);
-
-checkUser(error)
 
 // Computed para obtener los datos independientemente del tipo
 const itemData = computed(() => {

@@ -1,15 +1,11 @@
 <script setup>
 import { ref} from 'vue';
 import { useFetch } from '../composables/useFetch';
-import { checkUser } from '@/utils/functions';
 
 
 const url=ref(`http://localhost:3000/songs`)
 
 const {data, error,loading}=useFetch(url);
-const idItem=ref(null)
-
-checkUser(error.value)
 </script>
 
 <template>
@@ -26,14 +22,6 @@ checkUser(error.value)
 
     <div v-else>
       <!--Aquí ya se cargó los datos de la api-->
-      <div class="search-bar">
-        <label for="buscador">Buscar por nombre</label>
-        <div class="search-controls">
-          <input id="buscador" type="text" v-model="idItem" placeholder="Ej: Lovers" />
-          <button type="button">Buscar</button>
-        </div>
-      </div>
-
       <div class="actions">
         <RouterLink to="/canciones/new" class="enlaces">Agregar una nueva cancion</RouterLink>
       </div>

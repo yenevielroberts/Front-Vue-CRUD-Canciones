@@ -14,19 +14,32 @@ import NewMovie from '@/views/NewMovie.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Rutas abiertas
     {path:"/", name:"Inicio", component:Inicio},
-    {path:"/home", name:"Home", component:Home},
     {path:"/login", name:"Login", component:Login},
-    {path:"/canciones", name:"Canciones", component:Canciones},
-    {path:"/canciones/:id", name:"Detalle",component:Detalle},
-    {path:"/editar/:id", name:"Editar",component:Editar},
-    {path:"/canciones/new",name:"nuevoItem", component:NewItem},
-    {path:"/peliculas/new",name:"nuevoItem", component:NewMovie},
-    {path:"/peliculas", name:"Peliculas", component:Peliculas},
     {path:"/signup", name:"Signup", component:Signup},
     {path:"/sinAcceso", name:"SinAcceso", component:SinAcceso},
-
+    // Rutas con acceso solo si hay token
+    {path:"/home", name:"Home", component:Home, meta:{requiresAuth:true}},
+    {path:"/canciones", name:"Canciones", component:Canciones, meta:{requiresAuth:true}},
+    {path:"/canciones/:id", name:"Detalle",component:Detalle, meta:{requiresAuth:true}},
+    {path:"/editar/:id", name:"Editar",component:Editar, meta:{requiresAuth:true}},
+    {path:"/canciones/new",name:"nuevoItem", component:NewItem, meta:{requiresAuth:true}},
+    {path:"/peliculas/new",name:"nuevoItem", component:NewMovie, meta:{requiresAuth:true}},
+    {path:"/peliculas", name:"Peliculas", component:Peliculas, meta:{requiresAuth:true}},
   ],
+})
+
+router.beforeEach((to) => {
+  // Si no hay token, manda a SinAcceso
+  if (!to.meta.requiresAuth) return true;
+
+  const token = localStorage.getItem('token');
+  if (!token && to.path !== '/sinAcceso') {
+    return '/sinAcceso';
+  }
+
+  return true;
 })
 
 export default router

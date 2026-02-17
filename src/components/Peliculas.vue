@@ -1,15 +1,11 @@
 <script setup>
 import { ref} from 'vue';
 import { useFetch } from '../composables/useFetch';
-import { checkUser } from '@/utils/functions';
 
 
 const url=ref(`http://localhost:3000/movies`)
 
 const {data, error,loading}=useFetch(url);
-const idItem=ref(null)
-
-checkUser(error.value)
 </script>
 
 <template>

@@ -39,9 +39,6 @@ const deleteHandler=async()=>{
       console.error(`Fallo eliminando ${tituloTipo.value}:`,error.message);
     }
   }
-
- 
-
 }
 
 const editHandler=()=>router.push(`/editar/${tipo.value}/${itemId}`)

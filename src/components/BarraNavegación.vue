@@ -8,8 +8,7 @@ const route=useRoute()
 const mostrarNavPrivado=computed(()=>{
     const rutasPublicas=[ '/','/login','/signup']
 
-    
-    return !rutasPublicas.includes(route.path)
+    return !rutasPublicas.includes(route.path) 
 })
 
 const emit=defineEmits(["logout"])

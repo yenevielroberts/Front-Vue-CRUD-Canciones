@@ -1,11 +1,11 @@
 <script setup>
 import {ref} from 'vue'
 import {provide} from 'vue'
-import { useFetchPost } from '../composables/useFetchPost';
+import { useFetchUser } from '../composables/useFetchPost';
 import router from '@/router';
 
 const url=ref('http://localhost:3000/login');
-const {peticionPost, error,loading, data}=useFetchPost(url)
+const {peticionPostUser, error,loading, data}=useFetchUser(url)
 
 provide ('user', data)  
 
@@ -15,7 +15,7 @@ const loginHandler=async()=>{
 
     try {
 
-    const res= await peticionPost(form.value)
+    const res= await peticionPostUser(form.value)
 
     if(res){
         console.log("Login exitoso:")

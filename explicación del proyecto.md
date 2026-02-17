@@ -4,7 +4,7 @@
 - Frontend en Vue 3 con Vite.
 - Enrutado con Vue Router y guard global para rutas privadas.
 - Estado global con Pinia (usuario y token).
-- Composables para peticiones HTTP: `useFetch` (GET) y `useFetchPost` (POST).
+- Composables para peticiones HTTP: `useFetch` (peticiones HTTP de los items) y `useFetchPostUser` (Peticiones POST de registro y login).
 - Vistas en `src/views` y componentes en `src/components`.
 
 ## Endpoints

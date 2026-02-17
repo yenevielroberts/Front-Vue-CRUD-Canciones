@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import router from '@/router';
 import { useRoute } from 'vue-router'
 import BarraNavegación from './components/BarraNavegación.vue';
-import { useFetchPost } from './composables/useFetchPost';
+import { useFetchUser } from './composables/useFetchPost';
 
 const route=useRoute()
 
@@ -15,7 +15,7 @@ const mostrarBarra=computed(()=>{
 
 
 const url=ref('http://localhost:3000/logout');
-const {logout, loading, error}=useFetchPost(url)
+const {logout, loading, error}=useFetchUser(url)
 
 const logoutHandler=async()=>{
      try {

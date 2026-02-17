@@ -1,10 +1,10 @@
 <script setup>
 import {ref} from 'vue'
-import { useFetchPost } from '../composables/useFetchPost';
+import { useFetchUser } from '../composables/useFetchPost';
 import router from '@/router';
 
 const url=ref('http://localhost:3000/signup');
-const {peticionPost, loading, error}=useFetchPost(url)
+const {peticionPostUser, loading, error}=useFetchUser(url)
 
 const form=ref({
     username:'',
@@ -15,7 +15,7 @@ const signupHandler=async()=>{
 
     try {
 
-        const res= await peticionPost(form.value)//En esta variable guardo lo que devuelve el composable
+        const res= await peticionPostUser(form.value)//En esta variable guardo lo que devuelve el composable
 
         if(res){
             //Si la respuesta de peticionPost es ok redirijo a la home page

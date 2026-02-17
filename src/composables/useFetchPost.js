@@ -3,14 +3,14 @@ import {useUserStore} from '@/storages/UserStore'
 
 
 
-export function useFetchPost(url){
+export function useFetchUser(url){
     const userStore=useUserStore();
 
     const data=ref(null)
     const error=ref(null)
     const loading=ref(false)//Estado de la carga. si es false es que todavia no termina de cargas
 
- const peticionPost = async (body ) => {
+ const peticionPostUser = async (body ) => {
         loading.value = true;
         userStore.loading = true;
         error.value = null;
@@ -78,5 +78,5 @@ export function useFetchPost(url){
         }
     };
     
-    return {data, error,loading, peticionPost, logout}
+    return {data, error,loading, peticionPostUser, logout}
 }
